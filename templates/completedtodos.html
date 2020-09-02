@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block blockname %}
+<section id="completedtodos" class="py-3">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1>Completed Todos</h1>
+             
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-8">
+                {% if todos %}
+                <ul class="list-group">
+                    {% for todo in todos %}
+                    <a href="{% url 'view_todo' todo.id %}" class="list-group-item list-group-item-action{% if todo.important %} list-group-item-danger{% endif %}"> <b>{{ todo.title }}</b>{% if todo.memo %} - {{ todo.memo|truncatechars:30 }}{% endif %} </a>
+
+                    {% endfor %}
+                </ul>
+
+                {% else %}
+                
+                <h2 >Looks like you don't have any todos! Nice work.</h2>
+
+                <div class="text-center">
+
+                <a href="{% url 'create_todos' %}" class="btn btn-primary mt-3">Create Todo</a>
+
+                </div>
+
+                {% endif %}
+            </div>
+        </div>
+
+</section>
+
+{% endblock blockname %}

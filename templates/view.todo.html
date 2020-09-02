@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+
+{% block blockname %}
+<!-- {{error}}
+{{todo.title}}
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+{{form.as_p}}
+
+<input type="submit" value="Save">
+
+</form>
+
+<form action="{% url 'complete' todo.id %}" method="POST">
+    {% csrf_token %}
+
+
+<input type="submit" value="Complete">
+
+</form>
+
+<form action="{% url 'delete' todo.id %}" method="POST">
+    {% csrf_token %}
+
+
+<input type="submit" value="Delete">
+
+</form> -->
+
+
+<section id="view_todo">
+    <div class="container mt-5">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8 mt-4">
+                {% if error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <h1>Todo</h1>
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group mt-3">
+                    <label for="id_title">Title</label>
+                    <input type="text" name="title" class="form-control" id="id_title" value="{{todo.title}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="id_memo">Memo</label>
+                    <textarea style="resize: none;" name="memo" id="id_memo" cols="30" rows="5" class="form-control">{{todo.memo}}</textarea>
+                </div>
+
+                <div class="form-group form-check">
+                    <input class="form-check-input" type="checkbox" name="important" id="id_important" {% if todo.important %}checked{% endif %}>
+                    <label class="form-check-label" for="id_important">Important:</label>
+                </div>
+   
+                <button type="submit" class="btn btn-primary m-2">Save</button>
+
+                
+                {% if todo.datecompleted is None %}
+                  <button class="btn btn-success m-2" type="submit" onclick="$('#complete').submit(); return false;" title="My link title">Complete</a> 
+         
+                
+
+                {% endif %}
+
+                <button class="btn btn-danger m-2" type="submit" onclick="$('#delete').submit(); return false;" title="My link title">Delete</a> 
+         
+  
+                    
+            </form>
+    
+            </div>
+        </div>
+    </div>
+</section>
+
+<form id="complete" action="{% url 'complete' todo.id %}" method="post" style="display: none">
+    {% csrf_token %}
+    <button type="hidden" name="myParameterName" value="myParameterValue">Complete</button>
+  </form>
+
+  <form id="delete" action="{% url 'delete' todo.id %}" method="post" style="display: none">
+    {% csrf_token %}
+    <button type="hidden" name="myParameterName" value="myParameterValue">Complete</button>
+  </form>
+
+
+
+
+
+    
+{% endblock blockname %}
